@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemrograman Javascript</title>
+</head>
+<body>
+    <script>
+        //fungsi menghitung luas persegi panjang
+        function luasPersegiPanjang(p, l) {
+            return p*l;
+        }
+
+        //fungsi menghitung luas bujur sangkar
+        function luasBujurSangkar(s) {
+            return s*s;
+        }
+
+        //fungsi menghitung luas segitiga
+        function luasSegitiga(a, t) {
+            return (a*t)/2;
+        }
+
+        const a = 5;
+        const b = 6;
+        const c = 10;
+
+        //menampilkan hasil perhitungan luas persegi panjang, luas bujur sangkar, dan luas segitiga
+        document.write("Luas persegi panjang dengan Panjang: " + a + ", lebar: " + b + " adalah: " + luasPersegiPanjang(a, b));
+        document.write("<br>Luas bujur sangkar dengan panjang sisi: " + b + " adalah: " + luasBujurSangkar(b));
+        document.write("<br>Luas segitia dengan tinggi: " + c + ", alas: " + a + " adalah: " + luasSegitiga(a, c));
+    </script>
+</body>
+</html>
