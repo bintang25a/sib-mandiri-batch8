@@ -20,29 +20,22 @@ const tambahProduk = (nama, harga, stok) => {
 
 //fungsi untuk menghapus produk toko
 const hapusProduk = (id) => {
-	let idxDelete = produkList.findIndex(produk => produk.id === id);
-	
-	if (idxDelete !== -1) {
-		produkList.splice(idxDelete, 1);
-	}
+	produkList = [...produkList.filter(produk => produk.id !== id)];
 }
 
 //fungsi untuk menampilkan semua produk
 const tampilkanProdukDOM = () => {
 	const table = document.querySelector(".list-product table tbody");
 
-    produkList.forEach(produk => {
-        const baris = document.createElement("tr");
-
-        baris.innerHTML = `
+    table.innerHTML = [...produkList]
+    .map(produk => `
+        <tr>
             <td>${produk.id}</td>
             <td>${produk.nama}</td>
             <td>Rp ${produk.harga}</td>
             <td>${produk.stok}</td>
-        `
-
-        table.appendChild(baris);
-    });
+        </tr>
+    `).join("");
 }
 
 //fungsi event untuk mengganti warna background
@@ -65,8 +58,9 @@ tambahProduk("Monitor X", 2000000, 3);
 tambahProduk("Headphone", 200000, 12);
 tambahProduk("Speaker", 500000, 4);
 
-//menghapus produk dengan yang memiliki id = 2
+//menghapus produk dengan yang memiliki id = 2 an id = 6
 hapusProduk(2);
+hapusProduk(6);
 
 //menampilkan produk
 tampilkanProdukDOM();
