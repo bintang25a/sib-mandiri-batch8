@@ -1,0 +1,2 @@
+Saya mengupload folder "src" nya saja, karena untuk mengupload semua project reactnya, itu terlalu banyak file-file kecil yang membuat proses upload ke githubnya sangat lama
+file-file tersebut berasal dari folder node_modules
