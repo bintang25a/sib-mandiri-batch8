@@ -17,5 +17,7 @@
         </tr>
         @endforeach
     </table>
+
+    <a href="/genres">go to genres</a>
 </body>
 </html>

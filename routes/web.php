@@ -5,7 +5,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/genres');
 });
 
 Route::get('/genres', [GenreController::class, 'index']);

@@ -17,5 +17,6 @@
         </tr>
         @endforeach
     </table>
+    <a href="/authors">go to authors</a>
 </body>
 </html>
