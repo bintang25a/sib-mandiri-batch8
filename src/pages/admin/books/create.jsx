@@ -9,12 +9,12 @@ export default function BookCreate() {
   const [authors, setAuthors] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
+    description: "",
     price: 0,
     stock: 0,
+    cover_photo: null,
     genre_id: 0,
     author_id: 0,
-    cover_photo: null,
-    description: ""
   });
 
   const navigate = useNavigate();
@@ -34,40 +34,37 @@ export default function BookCreate() {
   }, []);
 
   const handleChange = (e) => {
-    const {name, value, files} = e.target;
+    const { name, value, files } = e.target;
 
-    if(name === "cover_photo") {
+    if (name === "cover_photo") {
       setFormData({
         ...formData,
         cover_photo: files[0],
       });
-    }
-    else {
+    } else {
       setFormData({
         ...formData,
-        [name]: value
+        [name]: value,
       });
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const payload = new FormData();
-      for(const key in formData) {
+      for (const key in formData) {
         payload.append(key, formData[key]);
       }
 
       await createBook(payload);
       navigate("/admin/books");
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       alert("error creating book");
     }
-
-  }
+  };
 
   return (
     <>
@@ -148,7 +145,9 @@ export default function BookCreate() {
                 >
                   <option value="">--Select Genre--</option>
                   {genres.map((genre) => (
-                  <option key={genre.id} value={genre.id}>{genre.name}</option>
+                    <option key={genre.id} value={genre.id}>
+                      {genre.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -168,11 +167,13 @@ export default function BookCreate() {
                 >
                   <option value="">--Select Author--</option>
                   {authors.map((author) => (
-                  <option key={author.id} value={author.id}>{author.name}</option>
+                    <option key={author.id} value={author.id}>
+                      {author.name}
+                    </option>
                   ))}
                 </select>
               </div>
-              
+
               <div className="w-full">
                 <label
                   htmlFor="cover_photo"

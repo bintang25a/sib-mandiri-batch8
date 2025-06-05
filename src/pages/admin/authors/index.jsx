@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { getAuthors } from "../../../_services/authors";
+import { deleteAuthor, getAuthors } from "../../../_services/authors";
 import { Link } from "react-router-dom";
 
-export default function AdminAuthorsgetAuthors() {
-  const [authors, setAuthorsgetAuthors] = useState([]);
+export default function AdminAuthors() {
+  const [authors, setAuthors] = useState([]);
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const [authorsData] = await Promise.all([
-        getAuthors(),
-      ]);
+      const [authorsData] = await Promise.all([getAuthors()]);
 
-      setAuthorsgetAuthors(authorsData);
+      setAuthors(authorsData);
     };
 
     fetchData();
@@ -20,6 +18,14 @@ export default function AdminAuthorsgetAuthors() {
 
   const toggleDropdown = (id) => {
     setOpenDropdownId(openDropdownId === id ? null : id);
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("apus ga nih?");
+    if (confirmDelete) {
+      await deleteAuthor(id);
+      setAuthors(authors.filter((author) => author.id !== id));
+    }
   };
 
   return (
@@ -102,7 +108,10 @@ export default function AdminAuthorsgetAuthors() {
               <tbody>
                 {authors.length > 0 ? (
                   authors.map((author) => (
-                    <tr key={author.id} className="border-b dark:border-gray-700">
+                    <tr
+                      key={author.id}
+                      className="border-b dark:border-gray-700"
+                    >
                       <th
                         scope="row"
                         className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -150,6 +159,7 @@ export default function AdminAuthorsgetAuthors() {
                             </ul>
                             <div className="py-1">
                               <button
+                                onClick={() => handleDelete(author.id)}
                                 className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                               >
                                 Delete

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getBooks } from "../../../_services/books";
+import { deleteBook, getBooks } from "../../../_services/books";
 import { getGenres } from "../../../_services/genres";
 import { Link } from "react-router-dom";
 import { getAuthors } from "../../../_services/authors";
@@ -15,7 +15,7 @@ export default function AdminBooks() {
       const [booksData, genresData, authorsData] = await Promise.all([
         getBooks(),
         getGenres(),
-        getAuthors()
+        getAuthors(),
       ]);
 
       setBooks(booksData);
@@ -38,6 +38,14 @@ export default function AdminBooks() {
 
   const toggleDropdown = (id) => {
     setOpenDropdownId(openDropdownId === id ? null : id);
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("apus ga nih?");
+    if (confirmDelete) {
+      await deleteBook(id);
+      setBooks(books.filter((book) => book.id !== id));
+    }
   };
 
   return (
@@ -142,7 +150,9 @@ export default function AdminBooks() {
                       <td className="px-4 py-3">
                         {getGenreName(book.genre_id)}
                       </td>
-                      <td className="px-4 py-3">{getAuthorName(book.author_id)}</td>
+                      <td className="px-4 py-3">
+                        {getAuthorName(book.author_id)}
+                      </td>
                       <td className="px-4 py-3 flex items-center justify-end relative">
                         <button
                           id={`dropdown-button-${book.id}`}
@@ -182,7 +192,7 @@ export default function AdminBooks() {
                             </ul>
                             <div className="py-1">
                               <button
-                                // to={"#"}
+                                onClick={() => handleDelete(book.id)}
                                 className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                               >
                                 Delete
