@@ -15,6 +15,7 @@ import AdminAuthors from "./pages/admin/authors/index.jsx";
 import AuthorCreate from "./pages/admin/authors/create.jsx";
 import GenreEdit from "./pages/admin/genres/edit.jsx";
 import AuthorEdit from "./pages/admin/authors/edit.jsx";
+import AdminTransactions from "./pages/admin/transactions/index.jsx";
 
 export default function App() {
   return (
@@ -23,11 +24,11 @@ export default function App() {
         <Routes>
           <Route element={<PublicLayout />}>
             <Route index element={<Home />} />
-            <Route path="/books" element={<Books />} />
+            <Route path="books" element={<Books />} />
           </Route>
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
 
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
@@ -45,6 +46,12 @@ export default function App() {
 
             <Route path="authors">
               <Route index element={<AdminAuthors />} />
+              <Route path="create" element={<AuthorCreate />} />
+              <Route path="edit/:id" element={<AuthorEdit />} />
+            </Route>
+
+            <Route path="transactions">
+              <Route index element={<AdminTransactions />} />
               <Route path="create" element={<AuthorCreate />} />
               <Route path="edit/:id" element={<AuthorEdit />} />
             </Route>

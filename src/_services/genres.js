@@ -5,16 +5,6 @@ export const getGenres = async () => {
   return data.data;
 };
 
-export const createGenre = async (data) => {
-  try {
-    const response = await API.post("/genres", data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
-
 export const showGenre = async (id) => {
   try {
     const { data } = await API.get(`/genres/${id}`);
@@ -25,9 +15,27 @@ export const showGenre = async (id) => {
   }
 };
 
+export const createGenre = async (data) => {
+  try {
+    const response = await API.post("/genres", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export const updateGenre = async (id, data) => {
   try {
-    const response = await API.post(`genres/${id}`, data);
+    const response = await API.post(`genres/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -37,7 +45,11 @@ export const updateGenre = async (id, data) => {
 
 export const deleteGenre = async (id) => {
   try {
-    const { message } = await API.delete(`genres/${id}`);
+    const { message } = await API.delete(`genres/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     return message.message;
   } catch (error) {
     console.log(error);
